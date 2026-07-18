@@ -162,7 +162,7 @@ function render() {
     const group = document.createElement('div');
     group.className = 'date-group';
 
-    const heading = document.createElement('p');
+    const heading = document.createElement('h2');
     heading.className = 'date-heading';
     heading.textContent = (dateKey === todayStr) ? 'TODAY' : fmtDate(dateKey).toUpperCase();
     group.appendChild(heading);
@@ -170,6 +170,7 @@ function render() {
     // Grid wrapper
     const grid = document.createElement('div');
     grid.className = 'events-grid';
+    grid.setAttribute('role', 'list');
 
     // Sort events within date by time
     groups[dateKey]
@@ -187,7 +188,7 @@ function render() {
               <span class="event-badge">${esc(CATEGORY_LABELS[ev.category] || ev.category)}</span>
             </div>
             <span class="card-date-label">${(ev.date === todayStr) ? 'TODAY' : esc(fmtCardDate(ev.date))}</span>
-            <h4 class="card-event-title">${esc(ev.title)}</h4>
+            <h3 class="card-event-title">${esc(ev.title)}</h3>
             ${ev.description ? `<p class="card-event-desc">${esc(ev.description)}</p>` : ''}
           </div>
           <div class="card-divider"></div>

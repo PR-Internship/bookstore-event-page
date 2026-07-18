@@ -11,7 +11,7 @@
   --border-2:    #cbd5e1;
   --text-1:      #0f172a;
   --text-2:      #475569;
-  --text-3:      #526071;
+  --text-3:      #435262;
   --accent:      #6366f1; /* Indigo */
   --accent-hover:#4f46e5;
   --glow:        rgba(99,102,241,0.15);
@@ -31,12 +31,6 @@ body {
 .container { max-width: 100%; margin: 0 auto; padding: 0 40px; }
 .sr-only    { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
 
-.skip-link {
-  position: absolute; top: -100%; left: 16px; z-index: 9999;
-  padding: 8px 16px; background: var(--accent); color: #fff;
-  border-radius: 6px; font-weight: 600; text-decoration: none;
-}
-.skip-link:focus { top: 8px; outline: 3px solid var(--accent); }
 
 /* ── BUTTONS ── */
 .btn-primary, .btn-ghost {
@@ -75,8 +69,8 @@ body {
   height: 38px;
 }
 .input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--glow); }
-.input.is-invalid { border-color: #ef4444; background: rgba(239,68,68,.02); }
-.input::placeholder { color: #94a3b8; }
+.input.is-invalid { border-color: #dc2626; background: rgba(220,38,38,.02); }
+.input::placeholder { color: #5b6c80; }
 textarea.input { resize: vertical; height: auto; }
 
 /* Wrapper for left-aligned icons in inputs */
@@ -396,7 +390,7 @@ main { flex: 1; margin-top: 24px; padding: 24px 0 60px; }
   background: var(--surface-2);
 }
 .btn-card-action.btn-delete:hover {
-  color: #ef4444;
+  color: #dc2626;
   background: #fef2f2;
 }
 
@@ -466,13 +460,13 @@ main { flex: 1; margin-top: 24px; padding: 24px 0 60px; }
 /* ── FORM ── */
 .form-group { display: flex; flex-direction: column; gap: 4px; margin-bottom: 16px; }
 .form-group label { font-size: 12px; font-weight: 700; color: var(--text-2); text-transform: uppercase; letter-spacing: .06em; }
-.form-group label span { color: #ef4444; }
+.form-group label span { color: #dc2626; }
 
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
 .form-row .form-group { margin-bottom: 0; }
 @media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
 
-.field-error { font-size: 12px; color: #ef4444; font-weight: 500; }
+.field-error { font-size: 12px; color: #dc2626; font-weight: 500; }
 .field-error[hidden] { display: none; }
 
 .char-count { font-size: 11px; color: var(--text-3); text-align: right; }
