@@ -301,7 +301,7 @@ function closeDialog() {
 function openDetailsDialog(ev) {
   dom.detailsContent.innerHTML = `
     <div class="details-popup-body">
-      <span class="event-badge">${esc(CATEGORY_LABELS[ev.category] || ev.category)}</span>
+      <span class="event-badge" data-cat="${esc(ev.category)}">${esc(CATEGORY_LABELS[ev.category] || ev.category)}</span>
       <h3 class="event-title" style="font-size: 20px; font-weight: 800; margin-top: 4px;">${esc(ev.title)}</h3>
       <div class="details-datetime-display">
         <div style="display: flex; flex-direction: column; gap: 4px;">
@@ -433,9 +433,13 @@ async function initialLoad() {
   await delay();
 
   const stored = load();
-  STATE.events = (stored && stored.length > 0) ? stored : seeds();
+  if (stored === null) {
+    STATE.events = seeds();
+    save();
+  } else {
+    STATE.events = stored;
+  }
   cleanupExpiredEvents();
-  if (!stored || stored.length === 0) save();
 
   dom.loading.hidden = true;
   applyFilters();

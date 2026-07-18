@@ -10,11 +10,11 @@
   --border:      #e2e8f0;
   --border-2:    #cbd5e1;
   --text-1:      #0f172a;
-  --text-2:      #475569;
-  --text-3:      #435262;
-  --accent:      #6366f1; /* Indigo */
-  --accent-hover:#4f46e5;
-  --glow:        rgba(99,102,241,0.15);
+  --text-2:      #334155;
+  --text-3:      #475569;
+  --accent:      #4f46e5; /* Adjusted Indigo for WCAG AA compliance (6.29:1) */
+  --accent-hover:#3730a3; /* Adjusted Dark Indigo for WCAG AA hover state (9.6:1) */
+  --glow:        rgba(79, 70, 229, 0.15);
 }
 
 body {
@@ -99,7 +99,7 @@ textarea.input { resize: vertical; height: auto; }
   right: 12px;
   width: 8px;
   height: 5px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath d='M1 1l3 3 3-3' stroke='%2364748b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath d='M1 1l3 3 3-3' stroke='%23475569' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   pointer-events: none;
 }
@@ -259,26 +259,31 @@ main { flex: 1; margin-top: 24px; padding: 24px 0 60px; }
 /* Category Accent colors based on design mockup */
 .event-card[data-cat="author-signing"] .card-accent-bar { background: #8b5cf6; }
 .event-card[data-cat="author-signing"] .event-badge,
+.event-badge[data-cat="author-signing"],
 .event-card[data-cat="author-signing"] .card-time-badge { background: #f3e8ff; color: #6d28d9; }
 .event-card[data-cat="author-signing"]:hover { border-color: #c084fc; box-shadow: 0 12px 20px -8px rgba(139,92,246,0.12); }
 
 .event-card[data-cat="book-club"] .card-accent-bar { background: #3b82f6; }
 .event-card[data-cat="book-club"] .event-badge,
+.event-badge[data-cat="book-club"],
 .event-card[data-cat="book-club"] .card-time-badge { background: #dbeafe; color: #1d4ed8; }
 .event-card[data-cat="book-club"]:hover { border-color: #93c5fd; box-shadow: 0 12px 20px -8px rgba(59,130,246,0.12); }
 
 .event-card[data-cat="reading"] .card-accent-bar { background: #ec4899; }
 .event-card[data-cat="reading"] .event-badge,
+.event-badge[data-cat="reading"],
 .event-card[data-cat="reading"] .card-time-badge { background: #fce7f3; color: #be185d; }
 .event-card[data-cat="reading"]:hover { border-color: #fbcfe8; box-shadow: 0 12px 20px -8px rgba(236,72,153,0.12); }
 
 .event-card[data-cat="workshop"] .card-accent-bar { background: #10b981; }
 .event-card[data-cat="workshop"] .event-badge,
+.event-badge[data-cat="workshop"],
 .event-card[data-cat="workshop"] .card-time-badge { background: #d1fae5; color: #047857; }
 .event-card[data-cat="workshop"]:hover { border-color: #6ee7b7; box-shadow: 0 12px 20px -8px rgba(16,185,129,0.12); }
 
 .event-card[data-cat="other"] .card-accent-bar { background: #64748b; }
 .event-card[data-cat="other"] .event-badge,
+.event-badge[data-cat="other"],
 .event-card[data-cat="other"] .card-time-badge { background: #f1f5f9; color: #334155; }
 .event-card[data-cat="other"]:hover { border-color: #cbd5e1; box-shadow: 0 12px 20px -8px rgba(100,116,139,0.12); }
 
