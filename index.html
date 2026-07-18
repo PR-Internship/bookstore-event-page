@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Bookstore staff event management portal." />
+  <title>Event Management</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body>
+
+  <!-- SKIP NAV -->
+  <a href="#events-section" class="skip-link">Skip to events</a>
+
+  <!-- ── MAIN ── -->
+  <main class="container" id="events-section">
+
+    <!-- MAIN HEADER BANNER -->
+    <section class="welcome-card main-header-banner" aria-label="Bookstore Events Header">
+      <div class="welcome-text">
+        <h1>📚 Bookstore Events</h1>
+        <p class="welcome-desc">Welcome to the staff event management portal. Here you can schedule new events, filter by category, search through upcoming sessions, and review details.</p>
+      </div>
+      <div class="welcome-actions">
+        <button id="open-dialog-btn" class="btn-primary" aria-haspopup="dialog">+ Add Event</button>
+      </div>
+    </section>
+
+    <!-- TOOLBAR -->
+    <section class="toolbar" aria-label="Search and filter">
+      <div class="input-icon-wrapper search-wrapper">
+        <svg class="input-icon-left" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <label for="search-input" class="sr-only">Search events</label>
+        <input type="search" id="search-input" class="input" placeholder="Search events..." autocomplete="off" aria-label="Search events" />
+      </div>
+
+      <div class="input-icon-wrapper select-wrapper">
+        <svg class="input-icon-left" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        <label for="category-filter" class="sr-only">Filter by category</label>
+        <select id="category-filter" class="input" aria-label="Filter by category">
+          <option value="">All Categories</option>
+          <option value="author-signing">Author Signing</option>
+          <option value="book-club">Book Club</option>
+          <option value="reading">Reading</option>
+          <option value="workshop">Workshop</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <span id="results-meta" aria-live="polite" class="results-meta"></span>
+    </section>
+
+    <!-- LOADING -->
+    <div id="loading" role="status" aria-live="polite" class="loading-wrap">
+      <div class="spinner"></div>
+      <p>Loading events…</p>
+    </div>
+
+    <!-- EMPTY STATE -->
+    <div id="empty-state" hidden class="empty-state">
+      <p class="empty-icon">📭</p>
+      <p id="empty-msg" class="empty-msg">No events found.</p>
+      <p id="empty-hint" class="empty-hint">Try a different search or add a new event.</p>
+    </div>
+
+    <!-- EVENTS LIST — groups rendered by JS -->
+    <div id="events-list" aria-label="Events grouped by date" aria-live="polite"></div>
+
+  </main>
+
+  <!-- ── DIALOG / FORM ── -->
+  <div id="dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title" hidden>
+    <div class="dialog-panel" id="dialog-panel" tabindex="-1">
+
+      <div class="dialog-header">
+        <h2 id="dialog-title">Add New Event</h2>
+        <button id="close-dialog-btn" class="btn-icon" aria-label="Close dialog">✕</button>
+      </div>
+
+      <p class="dialog-desc">Fields marked <span aria-hidden="true">*</span> are required.</p>
+
+      <form id="event-form" novalidate aria-label="Add event form">
+
+        <div class="form-group">
+          <label for="f-title">Title <span aria-label="required">*</span></label>
+          <input type="text" id="f-title" class="input" placeholder="e.g. Morning Brew Book Club" maxlength="120" aria-required="true" aria-describedby="e-title" autocomplete="off" />
+          <span id="e-title" class="field-error" role="alert" hidden></span>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="f-date">Date <span aria-label="required">*</span></label>
+            <input type="date" id="f-date" class="input" aria-required="true" aria-describedby="e-date" />
+            <span id="e-date" class="field-error" role="alert" hidden></span>
+          </div>
+          <div class="form-group">
+            <label for="f-time">Time <span aria-label="required">*</span></label>
+            <input type="time" id="f-time" class="input" aria-required="true" aria-describedby="e-time" />
+            <span id="e-time" class="field-error" role="alert" hidden></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="f-category">Category <span aria-label="required">*</span></label>
+          <select id="f-category" class="input" aria-required="true" aria-describedby="e-category">
+            <option value="">Select a category…</option>
+            <option value="author-signing">Author Signing</option>
+            <option value="book-club">Book Club</option>
+            <option value="reading">Reading</option>
+            <option value="workshop">Workshop</option>
+            <option value="other">Other</option>
+          </select>
+          <span id="e-category" class="field-error" role="alert" hidden></span>
+        </div>
+
+        <div class="form-group">
+          <label for="f-location">Location</label>
+          <input type="text" id="f-location" class="input" placeholder="e.g. Main Hall, Lounge, Room 101" maxlength="100" autocomplete="off" />
+        </div>
+
+        <div class="form-group">
+          <label for="f-desc">Description</label>
+          <textarea id="f-desc" class="input" rows="3" maxlength="500" placeholder="Brief description…" aria-describedby="char-count"></textarea>
+          <span id="char-count" aria-live="polite" class="char-count">0 / 500</span>
+        </div>
+
+        <!-- Save progress -->
+        <div id="save-indicator" hidden role="status" aria-live="polite" class="save-indicator">
+          <div class="spinner spinner-sm"></div> Saving…
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="cancel-btn" class="btn-ghost">Cancel</button>
+          <button type="submit" id="submit-btn" class="btn-primary">Save Event</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- ── DETAILS DIALOG ── -->
+  <div id="details-dialog" role="dialog" aria-modal="true" aria-labelledby="details-title" hidden>
+    <div class="dialog-panel" id="details-panel" tabindex="-1">
+      <div class="dialog-header">
+        <h2 id="details-title">Event Details</h2>
+        <button id="close-details-btn" class="btn-icon" aria-label="Close details dialog">✕</button>
+      </div>
+      <div id="details-content">
+        <!-- Content inserted dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" role="status" aria-live="polite" aria-atomic="true" class="toast" hidden></div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-inner">
+      <p>Bookstore Events — Staff Portal &copy; <span id="yr"></span></p>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/script.js"></script>
+</body>
+
+</html>
